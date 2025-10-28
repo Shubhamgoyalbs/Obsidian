@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir build",
+    "dev": "bun run src/index.ts",
+    "start": "bun run build/index.js",
+    "watch": "bun build src/index.ts --outdir build --watch"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.18.0",
+    "prisma": "^6.18.0"
+  }
+}
