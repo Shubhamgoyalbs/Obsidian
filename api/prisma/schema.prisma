@@ -1,8 +1,110 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Token {
+  id        String   @id @default(uuid())
+  mint      String   @unique
+  symbol    String
+  name      String
+  icon      String?
+  decimals  Int
+  price     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  marketsAsBase  Market[]            @relation("BaseToken")
+  marketsAsQuote Market[]            @relation("QuoteToken")
+  liquidityBase  LiquidityPosition[] @relation("LiquidityBaseToken")
+  liquidityQuote LiquidityPosition[] @relation("LiquidityQuoteToken")
+
+  @@index([mint])
+  @@index([symbol])
+}
+
+model Market {
+  id                String   @id @default(uuid())
+  baseTokenId       String
+  quoteTokenId      String
+  baseReserve       String
+  quoteReserve      String
+  volume24hUSD      String   @default("0")
+  totalLiquidityUSD String   @default("0")
+  feeRate           Float
+  totalFeeUSD       String   @default("0")
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  baseToken          Token               @relation("BaseToken", fields: [baseTokenId], references: [id])
+  quoteToken         Token               @relation("QuoteToken", fields: [quoteTokenId], references: [id])
+  transactions       Transaction[]
+  liquidityPositions LiquidityPosition[]
+
+  @@unique([baseTokenId, quoteTokenId])
+  @@index([baseTokenId])
+  @@index([quoteTokenId])
+  @@index([isActive])
+}
+
+model Transaction {
+  id              String          @id @default(uuid())
+  signature       String          @unique
+  type            TransactionType
+  marketId        String
+  traderPublicKey String
+  tokenInMint     String
+  tokenOutMint    String
+  amountIn        String
+  amountOut       String
+  price           String
+  feePaid         String
+  timestamp       DateTime        @default(now())
+
+  // Relations
+  market Market @relation(fields: [marketId], references: [id])
+
+  @@index([marketId])
+  @@index([traderPublicKey])
+  @@index([type])
+  @@index([timestamp])
+  @@index([signature])
+}
+
+model LiquidityPosition {
+  id             String   @id @default(uuid())
+  marketId       String
+  ownerPublicKey String
+  baseTokenId    String
+  quoteTokenId   String
+  baseAmount     String
+  minPrice       String
+  miaxrice       String
+  quoteAmount    String
+  totalValueUSD  String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  market     Market @relation(fields: [marketId], references: [id])
+  baseToken  Token  @relation("LiquidityBaseToken", fields: [baseTokenId], references: [id])
+  quoteToken Token  @relation("LiquidityQuoteToken", fields: [quoteTokenId], references: [id])
+
+  @@index([marketId])
+  @@index([ownerPublicKey])
+  @@index([baseTokenId])
+  @@index([quoteTokenId])
+}
+
+enum TransactionType {
+  SWAP
+  ADD_LIQUIDITY
+  REMOVE_LIQUIDITY
 }
