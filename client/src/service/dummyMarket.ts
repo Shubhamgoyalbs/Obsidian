@@ -1,4 +1,4 @@
-import type { Market, Token, Transaction } from "./types.ts";
+import type {Market, Token, Transaction} from "./types.ts";
 
 const SOL: Token = {
 	mint: "So11111111111111111111111111111111111111112",
@@ -61,6 +61,7 @@ export const dummyMarkets: Market[] = [
 		totalFeeUSD: "10200",
 		createdAt: new Date("2024-10-10T10:00:00Z"),
 		transactions: dummyTransactions,
+		isActive: true
 	},
 	{
 		id: "BONK-USDC",
@@ -74,6 +75,7 @@ export const dummyMarkets: Market[] = [
 		totalFeeUSD: "7500",
 		createdAt: new Date("2024-09-15T10:00:00Z"),
 		transactions: dummyTransactions,
+		isActive: false
 	},
 	{
 		id: "JUP-SOL",
@@ -87,5 +89,6 @@ export const dummyMarkets: Market[] = [
 		totalFeeUSD: "4500",
 		createdAt: new Date("2024-11-05T09:00:00Z"),
 		transactions: dummyTransactions,
+		isActive: true
 	},
 ];

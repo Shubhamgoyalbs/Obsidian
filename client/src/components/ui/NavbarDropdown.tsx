@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button.tsx";
-import { LuMenu } from "react-icons/lu";
+import {Button} from "@/components/ui/button.tsx";
+import {LuMenu} from "react-icons/lu";
 import {
 	DropdownMenu,
-	DropdownMenuContent, DropdownMenuItem,
+	DropdownMenuContent,
+	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu.tsx";
@@ -13,12 +14,13 @@ interface NavbarDropdownProps {
 	onDisconnect: () => void;
 }
 
-export const NavbarDropdown = ({ onLiquidityClick, onDisconnect }: NavbarDropdownProps) => {
+export const NavbarDropdown = ({onLiquidityClick, onDisconnect}: NavbarDropdownProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="outline" size="icon" className="border-[#282828] text-white bg-[#0A0A0A] hover:bg-[#1a1a1a] focus:ring-0 outline-none">
-					<LuMenu className="w-5 h-5" />
+				<Button variant="outline" size="icon"
+				        className="border-[#282828] text-white bg-[#0A0A0A] hover:bg-[#1a1a1a] focus:ring-0 outline-none">
+					<LuMenu className="w-5 h-5"/>
 				</Button>
 			</DropdownMenuTrigger>
 
@@ -29,7 +31,7 @@ export const NavbarDropdown = ({ onLiquidityClick, onDisconnect }: NavbarDropdow
 				<DropdownMenuLabel className="text-xs text-gray-400 uppercase tracking-wider">
 					Menu
 				</DropdownMenuLabel>
-				<DropdownMenuSeparator className="bg-[#282828]" />
+				<DropdownMenuSeparator className="bg-[#282828]"/>
 
 				<DropdownMenuItem
 					onClick={onLiquidityClick}

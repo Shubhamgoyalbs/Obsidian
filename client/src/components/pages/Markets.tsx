@@ -1,12 +1,11 @@
 import {NavbarType} from "../Navbar.tsx";
 import Layout from "./Layout.tsx";
 import {useEffect, useState} from "react";
-import type {Market} from "../../service/types.ts";
-import WhiteButton from "../ui/WhiteButton.tsx";
+import type {Market} from "@/service/types.ts";
 import {GoSearch} from "react-icons/go";
 import MarketComponent from "../MarketComponent.tsx";
-import { FiPlus } from "react-icons/fi";
-import {dummyMarkets} from "../../service/dummyMarket.ts";
+import {dummyMarkets} from "@/service/dummyMarket.ts";
+import CreateMarketDialog from "@/components/ui/CreateMarketDialog.tsx";
 
 const Markets = () => {
 	const [markets, setMarkets] = useState<Market[]>([]);
@@ -22,14 +21,27 @@ const Markets = () => {
 		setMarketLoading(false);
 	}, []);
 
-	const handleFilter = () => {
-		//todo
-		setFilteredMarkets(markets)
-	}
+	const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value.toLowerCase();
 
-	const handleCreateMarket = () => {
+		if (!value.trim()) {
+			setFilteredMarkets(markets);
+			return;
+		}
 
-	}
+		const filtered = markets.filter((market) => {
+			const base = market.baseToken.symbol.toLowerCase();
+			const quote = market.quoteToken.symbol.toLowerCase();
+			const pair = `${base}-${quote}`;
+			return (
+				base.includes(value) ||
+				quote.includes(value) ||
+				pair.includes(value)
+			);
+		});
+
+		setFilteredMarkets(filtered);
+	};
 
 	return (
 		<Layout navbarType={NavbarType.Inner} style="">
@@ -47,18 +59,18 @@ const Markets = () => {
 
 			{/*Search Bar*/}
 			<div className="w-full flex gap-3 mt-6">
-				<div className="w-full flex gap-2 items-center px-2 border-[#282828] border overflow-x-auto rounded-md">
+				<div className="w-full  flex gap-2 items-center px-2 border-[#282828] border overflow-x-auto rounded-md">
 					<GoSearch className="text-xl"/>
 					<input onChange={handleFilter} placeholder="serach markets"
 					       className="outline-none w-full border-none focus:ring-0"/>
 				</div>
-				<WhiteButton text={"CreateMarket"} icon={<FiPlus className="font-semibold text-lg"/>} handleClick={handleCreateMarket}/>
+				<CreateMarketDialog/>
 			</div>
 
 			<div className="w-full mt-10">
 				{marketLoading ? (
-					// LOADING ANIMATION
-					<div className="w-full border border-[#282828] bg-[#141414] rounded-md px-28 py-14 flex justify-center items-center">
+					<div
+						className="w-full border border-[#282828] bg-[#141414] rounded-md px-28 py-14 flex justify-center items-center">
 						<p className="text-white text-xl font-semibold flex items-center">
 							Loading Markets
 							<span className="flex ml-1">
@@ -78,7 +90,8 @@ const Markets = () => {
 					</div>
 				) : filteredMarkets.length === 0 ? (
 					// EMPTY STATE
-					<div className="w-full border border-[#282828] bg-[#141414] rounded-md px-28 py-14 flex justify-center items-center">
+					<div
+						className="w-full border border-[#282828] bg-[#141414] rounded-md px-28 py-14 flex justify-center items-center">
 						<p className="text-gray-400 text-lg font-medium">
 							No markets available. Please wait or create a new market.
 						</p>

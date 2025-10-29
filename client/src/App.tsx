@@ -11,6 +11,7 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import NotFound from "./components/NotFound.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
 
 function App() {
 	const endpoint = "https://solana-devnet.g.alchemy.com/v2/qAiy1qJntzS3CIGQEoPxX";
@@ -52,6 +53,7 @@ function App() {
 			<WalletProvider wallets={[]} autoConnect>
 				<WalletModalProvider>
 					<RouterProvider router={router}/>
+					<Toaster position="top-center" />
 				</WalletModalProvider>
 			</WalletProvider>
 		</ConnectionProvider>

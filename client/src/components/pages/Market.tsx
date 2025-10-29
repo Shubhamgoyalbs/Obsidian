@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
-import {NavbarType} from "../Navbar.tsx";
 import Layout from "./Layout.tsx";
+import {NavbarType} from "../Navbar.tsx";
 
 const Market = () => {
 	const {id} = useParams();

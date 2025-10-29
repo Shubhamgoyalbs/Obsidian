@@ -1,11 +1,11 @@
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import {useWallet} from "@solana/wallet-adapter-react";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {useWalletModal} from "@solana/wallet-adapter-react-ui";
 import WhiteButton from "./ui/WhiteButton.tsx";
-import { LuDroplets } from "react-icons/lu";
-import { IoWalletOutline } from "react-icons/io5";
-import { NavbarDropdown } from "@/components/ui/NavbarDropdown.tsx";
+import {LuDroplets} from "react-icons/lu";
+import {IoWalletOutline} from "react-icons/io5";
+import {NavbarDropdown} from "@/components/ui/NavbarDropdown.tsx";
 
 export enum NavbarType {
 	Landing,
@@ -16,10 +16,10 @@ interface NavbarProps {
 	type: NavbarType;
 }
 
-const Navbar = ({ type }: NavbarProps) => {
-	const { connected, disconnect } = useWallet();
+const Navbar = ({type}: NavbarProps) => {
+	const {connected, disconnect} = useWallet();
 	const navigate = useNavigate();
-	const { setVisible } = useWalletModal();
+	const {setVisible} = useWalletModal();
 
 	useEffect(() => {
 		if (type === NavbarType.Landing && connected) {
@@ -67,7 +67,7 @@ const Navbar = ({ type }: NavbarProps) => {
 				<WhiteButton
 					handleClick={handleConnectWallet}
 					text="Connect Wallet"
-					icon={<IoWalletOutline />}
+					icon={<IoWalletOutline/>}
 				/>
 			) : (
 				<>
@@ -77,13 +77,13 @@ const Navbar = ({ type }: NavbarProps) => {
 							onClick={handleGoToLiquidity}
 							className="flex items-center gap-2 cursor-pointer text-white font-semibold px-5 py-2 rounded-sm hover:text-gray-200 hover:scale-102 transition-all duration-200"
 						>
-							<LuDroplets />
+							<LuDroplets/>
 							<span>My Liquidity</span>
 						</button>
 						<WhiteButton
 							handleClick={handleDisconnectWallet}
 							text="Disconnect Wallet"
-							icon={<IoWalletOutline />}
+							icon={<IoWalletOutline/>}
 						/>
 					</div>
 

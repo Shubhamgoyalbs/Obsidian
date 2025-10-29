@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import type { Market } from "../service/types.ts";
+import {useNavigate} from "react-router-dom";
+import type {Market} from "../service/types.ts";
 import WhiteButton from "./ui/WhiteButton.tsx";
-import { IoSwapVertical } from "react-icons/io5";
+import {IoSwapVertical} from "react-icons/io5";
 
-const MarketComponent = ({ market }: { market: Market }) => {
+const MarketComponent = ({market}: { market: Market }) => {
 	const navigate = useNavigate();
 
 	const handleTrade = () => {
@@ -11,7 +11,8 @@ const MarketComponent = ({ market }: { market: Market }) => {
 	};
 
 	return (
-		<div className="w-full border border-[#282828] bg-[#141414] rounded-md px-6 py-6 text-white transition-all duration-200 hover:bg-[#1a1a1a] flex flex-col gap-6">
+		<div
+			className="w-full border border-[#282828] bg-[#141414] rounded-md px-6 py-6 text-white transition-all duration-200 hover:bg-[#1a1a1a] flex flex-col gap-6">
 
 			<div className="hidden lg:flex flex-col gap-4">
 				<div className="flex items-center justify-between">
@@ -60,7 +61,7 @@ const MarketComponent = ({ market }: { market: Market }) => {
 						</div>
 					</div>
 
-					<WhiteButton handleClick={handleTrade} text="Trade" icon={<IoSwapVertical className="text-lg" />} />
+					<WhiteButton handleClick={handleTrade} text="Trade" icon={<IoSwapVertical className="text-lg"/>}/>
 				</div>
 
 				<div className="flex justify-between items-center border-t border-[#282828] pt-4">
@@ -98,7 +99,7 @@ const MarketComponent = ({ market }: { market: Market }) => {
 					</div>
 
 					<div className="w-full sm:w-auto flex justify-end">
-						<WhiteButton handleClick={handleTrade} text="Trade" icon={<IoSwapVertical className="text-lg" />} />
+						<WhiteButton handleClick={handleTrade} text="Trade" icon={<IoSwapVertical className="text-lg"/>}/>
 					</div>
 				</div>
 

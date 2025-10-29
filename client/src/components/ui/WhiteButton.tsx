@@ -1,9 +1,9 @@
 import React from "react";
 
 interface NavbarButtonProps {
-	handleClick: () => void;
+	handleClick?: () => void;
 	text: string;
-	icon?: React.ReactNode; // optional icon prop
+	icon?: React.ReactNode;
 }
 
 const WhiteButton = ({handleClick, text, icon}: NavbarButtonProps) => {

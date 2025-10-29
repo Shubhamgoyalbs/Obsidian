@@ -18,6 +18,7 @@ export interface Market {
 	feeRate: number;
 	totalFeeUSD: string;
 	createdAt?: Date;
+	isActive: Boolean;
 	transactions: Transaction[]
 }
 
